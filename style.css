@@ -1,0 +1,561 @@
+:root {
+  --bg:#f7f7f7;
+  --fg: #2d2f3e;
+  --font: 'Roboto Mono', monospace;
+  --sidebar-width: 280px;
+  --gap: 3rem;
+  --date-col-width: 5.5rem;
+  --date-gap: 1.5rem;
+  --line-gap: 1.75rem;
+  --timeline-indent: calc(var(--date-col-width) + var(--date-gap) + var(--line-gap));
+  --timeline-width: 3px;
+  --dot-size: 7px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 15px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  line-height: 1.6;
+  padding: 2rem;
+}
+
+a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  opacity: 0.65;
+}
+
+.page-wrapper {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.page {
+  display: grid;
+  grid-template-columns: 1fr var(--sidebar-width);
+  gap: var(--gap);
+}
+
+.sidebar {
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+}
+
+/* ── Hero ─────────────────────────────────────────── */
+.hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(45, 47, 62, 0.15);
+}
+
+.hero-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid var(--fg);
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-text h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.hero-title {
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin: 0.3rem 0 1rem;
+}
+
+.hero-summary {
+  font-size: 0.85rem;
+  line-height: 1.75;
+  max-width: none;
+  opacity: 0.9;
+}
+
+.hero-contact {
+  flex-shrink: 0;
+  width: var(--sidebar-width);
+  margin-left: auto;
+}
+
+.hero-contact-badge-link {
+  display: inline-block;
+}
+
+.hero-contact-badge {
+  display: block;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  margin-top: 1.5rem;
+}
+
+/* ── Section ──────────────────────────────────────── */
+.section {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.timeline-connector {
+  position: absolute;
+  left: calc(var(--timeline-indent) - var(--line-gap));
+  top: 0.56rem;
+  width: var(--timeline-width);
+  height: 2.63rem;
+  background: var(--fg);
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  padding-left: var(--timeline-indent);
+}
+
+.heading-text {
+  color: var(--fg);
+}
+
+.icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--fg);
+  flex-shrink: 0;
+}
+
+.section-heading .icon-badge {
+  position: absolute;
+  top: -0.24rem;
+  left: calc(var(--timeline-indent) - var(--line-gap) + (var(--timeline-width) / 2) - 0.8rem);
+}
+
+.icon-glyph {
+  display: block;
+  width: 0.85rem;
+  height: 0.85rem;
+  background-color: var(--bg);
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* ── Timeline ─────────────────────────────────────── */
+.timeline {
+  position: relative;
+  padding-left: var(--timeline-indent);
+}
+
+/* ── Job block ────────────────────────────────────── */
+.job {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.job:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--line-gap));
+  top: 0.57rem;
+  bottom: calc(-1 * (2.5rem + 0.57rem));
+  width: var(--timeline-width);
+  background: var(--fg);
+}
+
+.section:not(:last-of-type) .timeline .job:last-child::after {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--line-gap));
+  top: 0.57rem;
+  bottom: calc(-1 * (2.5rem + 3rem + 0.56rem));
+  width: var(--timeline-width);
+  background: var(--fg);
+}
+
+.job::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--line-gap) + (var(--timeline-width) / 2) - (var(--dot-size) / 2));
+  top: 0.57rem;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 50%;
+  background: var(--fg);
+  transition: transform 0.3s ease;
+}
+
+.job-meta {
+  position: absolute;
+  top: 0.22rem;
+  left: calc(-1 * var(--timeline-indent));
+  width: var(--date-col-width);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  opacity: 0.5;
+}
+
+.job-company {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.1rem;
+}
+
+.job-role {
+  font-size: 0.8rem;
+  font-weight: 300;
+  opacity: 0.75;
+  margin-bottom: 0.75rem;
+}
+
+.job-body {
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.job-body > p:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+/* ── Sub-roles ────────────────────────────────────── */
+.sub-roles {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-left: 1rem;
+  border-left: 2px solid rgba(45, 47, 62, 0.12);
+}
+
+.sub-role-title {
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+/* ── Sidebar sections ─────────────────────────────── */
+.sidebar-section {
+  margin-bottom: 2rem;
+}
+
+.sidebar-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+/* The Highlighted Skills heading toggles all skill groups — make the whole
+   heading clickable like the sub-section headers. Scoped to .sidebar-section
+   so the non-collapsible Contact heading (same class) is unaffected. */
+.sidebar-section .sidebar-heading {
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.15s ease;
+}
+
+.sidebar-section .sidebar-heading:hover {
+  opacity: 0.65;
+}
+
+.skill-toggle-all {
+  margin-left: auto;
+  font: inherit;
+  font-size: 0.9rem;
+  letter-spacing: normal;
+  text-transform: none;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  width: 1rem;
+  text-align: center;
+  flex-shrink: 0;
+  transition: opacity 0.15s ease;
+}
+
+.skill-toggle-all:hover {
+  opacity: 1;
+}
+
+/* ── Contact list ─────────────────────────────────── */
+.contact-list {
+  list-style: none;
+  font-size: 0.78rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.contact-label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  opacity: 0.5;
+  margin-bottom: 0.1rem;
+}
+
+/* ── Skill groups ─────────────────────────────────── */
+.skill-group {
+  margin-bottom: 1rem;
+}
+
+.skill-transition {
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.skill-list.skill-collapsed {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.skill-list.skill-expanded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-transition {
+    transition: none;
+  }
+}
+
+.skill-group-header {
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.3rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  border-bottom: 1px solid rgba(45, 47, 62, 0.12);
+  margin-bottom: 0.4rem;
+  transition: opacity 0.15s ease;
+}
+
+.skill-group-header:hover {
+  opacity: 0.65;
+}
+
+.skill-toggle {
+  font-size: 0.9rem;
+  opacity: 0.5;
+  width: 1rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.skill-list {
+  list-style: none;
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  opacity: 0.8;
+  padding-left: 0.5rem;
+}
+
+/* ── Download PDF button ──────────────────────────── */
+.download-pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 0.55rem;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg);
+  border: 1.5px solid rgba(45, 47, 62, 0.25);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.download-pdf-btn:hover {
+  border-color: var(--fg);
+  box-shadow: 0 0 0 3px rgba(45, 47, 62, 0.08);
+  opacity: 1;
+}
+
+.download-pdf-btn .icon-badge {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.download-pdf-btn .icon-glyph {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+/* ── Animations ───────────────────────────────────── */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero {
+  animation: fadeSlideUp 0.6s ease forwards;
+}
+
+.animate-in {
+  opacity: 0;
+  transform: translateY(33px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+.animate-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.job.visible::before {
+  transform: scale(1.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    animation: none;
+  }
+  .animate-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .job::before {
+    transition: none;
+  }
+}
+
+/* ── Mobile ───────────────────────────────────────── */
+/* screen-scoped: print renders at paper width (A4 ≈ 700px printable),
+   which is under this breakpoint — without the scope, every print
+   came out in the mobile layout. */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  .section {
+    --date-col-width: 3.5rem;
+    --date-gap: 0.75rem;
+  }
+
+  .page {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    order: -1;
+    border-bottom: 1px solid rgba(45, 47, 62, 0.15);
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-photo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .hero-contact {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .hero-contact .contact-list {
+    align-items: center;
+  }
+}
+
+/* ── PDF export ───────────────────────────────────── */
+/* Only the generated PDF (scripts/generate-pdf.mjs) uses print media —
+   Ctrl+P is not a supported path. The page size and margins come from
+   the @page rule the script injects; these rules keep the PDF faithful
+   to the on-screen layout. */
+@media print {
+  /* Icons and timeline dots/lines are painted with background-color,
+     which the print renderer would otherwise drop. */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Reveal-on-scroll elements start hidden and are only shown once
+     scrolled into view; the generator never scrolls, so force them all
+     visible or content below the fold would be blank in the PDF. */
+  .animate-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .download-pdf-btn {
+    display: none;
+  }
+}

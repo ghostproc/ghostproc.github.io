@@ -1,0 +1,19 @@
+#!/bin/sh
+# Keeps assets/johan-klenner-resume.pdf in sync with the resume source. When a commit stages changes to index.html or style.css, regenerates 
+# the PDF and adds it to the same commit so the downloadable PDF can never drift from the live page. Activated by "git config core.hooksPath .githooks"
+# which npm install sets automatically (see the postinstall script in package.json).
+
+set -e
+
+if git diff --cached --name-only | grep -qE '^(index\.html|style\.css)$'; then
+  echo "pre-commit: resume source changed — regenerating PDF"
+
+  if [ ! -d node_modules/playwright ]; then
+    echo "pre-commit: playwright not installed, run "npm install" first, or commit with --no-verify to skip" >&2
+    exit 1
+  fi
+
+  npm run --silent generate-pdf
+  git add assets/johan-klenner-resume.pdf
+  echo "pre-commit: assets/johan-klenner-resume.pdf refreshed and staged"
+fi
