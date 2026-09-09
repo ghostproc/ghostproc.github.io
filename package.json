@@ -1,0 +1,12 @@
+{
+  "name": "resume",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate-pdf": "node scripts/generate-pdf.mjs",
+    "postinstall": "git config core.hooksPath .githooks || true"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
+  }
+}
