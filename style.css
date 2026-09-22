@@ -1,7 +1,10 @@
 :root {
-  --bg:#f7f7f7;
-  --fg: #2d2f3e;
-  --font: 'Roboto Mono', monospace;
+  --bg: #FBFBF9;
+  --fg: #000000;
+  --accent: #ECECE7;
+  /* Sans: labels, dates, roles, skills. Serif: name, employers, prose. */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
   --sidebar-width: 280px;
   --gap: 3rem;
   --date-col-width: 5.5rem;
@@ -10,6 +13,7 @@
   --timeline-indent: calc(var(--date-col-width) + var(--date-gap) + var(--line-gap));
   --timeline-width: 3px;
   --dot-size: 7px;
+  --node-gap: 1.5rem;
 }
 
 *, *::before, *::after {
@@ -26,7 +30,7 @@ html {
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font);
+  font-family: var(--font-sans);
   line-height: 1.6;
   padding: 2rem;
 }
@@ -65,7 +69,8 @@ a:hover {
   gap: 2rem;
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(45, 47, 62, 0.15);
+  border-bottom: 1px solid var(--accent);
+  background: var(--bg);
 }
 
 .hero-photo {
@@ -75,6 +80,7 @@ a:hover {
   object-fit: cover;
   flex-shrink: 0;
   border: 2px solid var(--fg);
+  mix-blend-mode: multiply;
 }
 
 .hero-text {
@@ -83,15 +89,16 @@ a:hover {
 }
 
 .hero-text h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
 }
 
 .hero-title {
-  font-size: 0.85rem;
-  font-weight: 300;
+  font-size: 0.78rem;
+  font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -99,9 +106,10 @@ a:hover {
 }
 
 .hero-summary {
-  font-size: 0.85rem;
-  line-height: 1.75;
-  max-width: none;
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  line-height: 1.65;
+  max-width: 64ch;
   opacity: 0.9;
 }
 
@@ -127,7 +135,7 @@ a:hover {
 /* ── Section ──────────────────────────────────────── */
 .section {
   position: relative;
-  margin-bottom: 3rem;
+  margin-bottom: 0;
 }
 
 .timeline-connector {
@@ -135,7 +143,8 @@ a:hover {
   left: calc(var(--timeline-indent) - var(--line-gap));
   top: 0.56rem;
   width: var(--timeline-width);
-  height: 2.63rem;
+  /* heading line-box (1.12rem) + gap + first dot offset (0.57) - own top (0.56) */
+  height: calc(var(--node-gap) + 1.13rem);
   background: var(--fg);
 }
 
@@ -143,11 +152,12 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  line-height: 1.12rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--node-gap);
   padding-left: var(--timeline-indent);
 }
 
@@ -196,25 +206,17 @@ a:hover {
 /* ── Job block ────────────────────────────────────── */
 .job {
   position: relative;
-  margin-bottom: 2.5rem;
+  margin-bottom: var(--node-gap);
 }
 
-.job:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  left: calc(-1 * var(--line-gap));
-  top: 0.57rem;
-  bottom: calc(-1 * (2.5rem + 0.57rem));
-  width: var(--timeline-width);
-  background: var(--fg);
-}
-
+/* Second selector carries the line across a section break. The last job on the page matches neither so it draws no line */
+.job:not(:last-child)::after,
 .section:not(:last-of-type) .timeline .job:last-child::after {
   content: '';
   position: absolute;
   left: calc(-1 * var(--line-gap));
   top: 0.57rem;
-  bottom: calc(-1 * (2.5rem + 3rem + 0.56rem));
+  bottom: calc(-1 * (var(--node-gap) + 0.57rem));
   width: var(--timeline-width);
   background: var(--fg);
 }
@@ -238,26 +240,32 @@ a:hover {
   width: var(--date-col-width);
   text-align: right;
   font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  opacity: 0.5;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  opacity: 0.55;
 }
 
 .job-company {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 0.1rem;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.15rem;
 }
 
 .job-role {
-  font-size: 0.8rem;
-  font-weight: 300;
-  opacity: 0.75;
+  font-size: 0.82rem;
+  font-weight: 400;
+  opacity: 0.7;
   margin-bottom: 0.75rem;
 }
 
 .job-body {
-  font-size: 0.82rem;
-  line-height: 1.7;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 66ch;
 }
 
 .job-body > p:not(:last-child) {
@@ -270,24 +278,29 @@ a:hover {
   flex-direction: column;
   gap: 1rem;
   padding-left: 1rem;
-  border-left: 2px solid rgba(45, 47, 62, 0.12);
+  border-left: var(--timeline-width) solid var(--accent);
 }
 
 .sub-role-title {
-  font-weight: 500;
-  margin-bottom: 0.2rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
 }
 
 .cert-date {
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  opacity: 0.5;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  opacity: 0.55;
   margin-bottom: 0.15rem;
 }
 
 .cert-name {
-  font-size: 0.8rem;
-  font-weight: 300;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 400;
   opacity: 0.75;
 }
 
@@ -304,16 +317,13 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   margin-bottom: 1rem;
 }
 
-/* The Highlighted Skills heading toggles all skill groups — make the whole
-   heading clickable like the sub-section headers. Scoped to .sidebar-section
-   so the non-collapsible Contact heading (same class) is unaffected. */
 .sidebar-section .sidebar-heading {
   cursor: pointer;
   user-select: none;
@@ -348,7 +358,7 @@ a:hover {
 /* ── Contact list ─────────────────────────────────── */
 .contact-list {
   list-style: none;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
@@ -356,10 +366,10 @@ a:hover {
 
 .contact-label {
   display: block;
-  font-weight: 700;
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
-  opacity: 0.5;
+  font-weight: 600;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  opacity: 0.55;
   margin-bottom: 0.1rem;
 }
 
@@ -389,7 +399,7 @@ a:hover {
 }
 
 .skill-group-header {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
   padding: 0.3rem 0;
@@ -397,7 +407,7 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   user-select: none;
-  border-bottom: 1px solid rgba(45, 47, 62, 0.12);
+  border-bottom: 1px solid var(--accent);
   margin-bottom: 0.4rem;
   transition: opacity 0.15s ease;
 }
@@ -416,7 +426,7 @@ a:hover {
 
 .skill-list {
   list-style: none;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -424,7 +434,6 @@ a:hover {
   padding-left: 0.5rem;
 }
 
-/* ── Download PDF button ──────────────────────────── */
 /* ── Animations ───────────────────────────────────── */
 @keyframes fadeSlideUp {
   from {
@@ -491,7 +500,7 @@ a:hover {
   .sidebar {
     position: static;
     order: -1;
-    border-bottom: 1px solid rgba(45, 47, 62, 0.15);
+    border-bottom: 1px solid var(--accent);
     padding-bottom: 2rem;
     margin-bottom: 2rem;
   }
