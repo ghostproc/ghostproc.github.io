@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
   <title>Johan Klenner - Resume</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=Newsreader:opsz,wght@6..72,400..600&display=swap" rel="stylesheet" />
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin />
   <script defer
     src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"
     integrity="sha384-9Ax3MmS9AClxJyd5/zafcXXjxmwFhZCdsT6HJoJjarvCaAkJlk5QDzjLJm+Wdx5F"
@@ -17,8 +16,8 @@
 <body>
   <div class="page-wrapper">
     <section class="hero">
-      <img src="assets/headshot.jpg" alt="Johan Klenner" class="hero-photo" />
-      <div class="hero-text">
+      <img src="assets/headshot.jpg" alt="Johan Klenner" class="hero-photo animate-in" />
+      <div class="hero-text animate-in">
         <h1>Johan Klenner</h1>
         <p class="hero-title">Cloud Security Specialist</p>
         <p class="hero-summary">
@@ -31,8 +30,8 @@
           information security. CISSP Associate.
         </p>
       </div>
-      <div class="hero-contact">
-        <h3 class="sidebar-heading"><span class="icon-badge"><span class="icon-glyph" style="--icon-url: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/person-fill.svg')"></span></span><span class="heading-text">Contact</span></h3>
+      <div class="hero-contact animate-in">
+        <h3 class="sidebar-heading"><span class="icon-badge"><span class="icon-glyph" style="--icon-url: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/person-fill.svg')"></span></span>Contact</h3>
         <ul class="contact-list">
           <li>
             <span class="contact-label">Mail</span>
@@ -57,7 +56,7 @@
     <main class="main">
       <section class="section">
         <span class="timeline-connector animate-in"></span>
-        <h2 class="section-heading animate-in"><span class="icon-badge"><span class="icon-glyph" style="--icon-url: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/briefcase-fill.svg')"></span></span><span class="heading-text">Experience</span></h2>
+        <h2 class="section-heading animate-in"><span class="icon-badge"><span class="icon-glyph" style="--icon-url: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/briefcase-fill.svg')"></span></span>Experience</h2>
         <div class="timeline">
 
           <div class="job animate-in">
@@ -104,7 +103,7 @@
                   <p class="sub-role-title">IAM Specialist - Major Transport Authority </p>
                   <p>Technical implementation of Omada Identity: authorization process design, birthright permission modeling, lifecycle management analysis, and integrations with Active Directory, Entra ID, and Exchange.</p>
                 </div>
-                  <div class="sub-role">
+                <div class="sub-role">
                   <p class="sub-role-title">IT Security Specialist - Government Agency</p>
                   <p>Security contact in a defence-industry software project - security requirements analysis, policy implementation, and security architecture responsibility, aligned to ISO 27000-series, NIST SP 800-53, and best practices.</p>
                 </div>
@@ -142,7 +141,7 @@
 
       <section class="section">
         <span class="timeline-connector animate-in"></span>
-        <h2 class="section-heading animate-in"><span class="icon-badge"><span class="icon-glyph" style="--icon-url: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/mortarboard-fill.svg')"></span></span><span class="heading-text">Education</span></h2>
+        <h2 class="section-heading animate-in"><span class="icon-badge"><span class="icon-glyph" style="--icon-url: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/mortarboard-fill.svg')"></span></span>Education</h2>
         <div class="timeline">
           <div class="job animate-in">
             <div class="job-meta">2019 – 2022</div>
@@ -166,7 +165,7 @@
 
       <section class="section">
         <span class="timeline-connector animate-in"></span>
-        <h2 class="section-heading animate-in"><span class="icon-badge"><span class="icon-glyph" style="--icon-url: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/check-circle-fill.svg')"></span></span><span class="heading-text">Courses &amp; Certifications</span></h2>
+        <h2 class="section-heading animate-in"><span class="icon-badge"><span class="icon-glyph" style="--icon-url: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/check-circle-fill.svg')"></span></span>Courses &amp; Certifications</h2>
         <div class="timeline">
 
           <div class="job animate-in">
@@ -233,26 +232,15 @@
       </section>
     </main>
     <aside class="sidebar animate-in">
-       <div class="sidebar-section" x-data="{
-            groups: { cso: true, prog: true, iam: true, net: true, data: true, sec: true },
-            get anyOpen() { return Object.values(this.groups).some(Boolean); },
-            toggleAll() { const target = !this.anyOpen; for (const k in this.groups) this.groups[k] = target; }
-          }">
-        <h3 class="sidebar-heading" @click="toggleAll()"><span class="icon-badge"><span class="icon-glyph" style="--icon-url: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/clipboard-data-fill.svg')"></span></span><span class="heading-text">Highlighted Skills</span><span class="skill-toggle-all" x-text="anyOpen ? '−' : '+'"></span></h3>
+      <div class="sidebar-section" x-data="skills">
+        <h3 class="sidebar-heading" @click="toggleAll()"><span class="icon-badge"><span class="icon-glyph" style="--icon-url: url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/clipboard-data-fill.svg')"></span></span>Highlighted Skills<span class="skill-toggle-all" x-text="anyOpen ? '−' : '+'"></span></h3>
 
         <div class="skill-group">
           <div class="skill-group-header" @click="groups.cso = !groups.cso">
             Cloud Security Operations
             <span class="skill-toggle" x-text="groups.cso ? '−' : '+'"></span>
           </div>
-          <ul class="skill-list"
-              x-show="groups.cso"
-              x-transition:enter="skill-transition"
-              x-transition:enter-start="skill-collapsed"
-              x-transition:enter-end="skill-expanded"
-              x-transition:leave="skill-transition"
-              x-transition:leave-start="skill-expanded"
-              x-transition:leave-end="skill-collapsed">
+          <ul class="skill-list" x-bind="list('cso')">
             <li>Microsoft Sentinel, Defender XDR, Defender for Endpoint</li>
             <li>Log Ingestion, Forwarding &amp; Data Collection Rules</li>
             <li>Detection Engineering, Rule Tuning &amp; Threat Hunting</li>
@@ -267,14 +255,7 @@
             Query, Scripting &amp; Automation
             <span class="skill-toggle" x-text="groups.prog ? '−' : '+'"></span>
           </div>
-          <ul class="skill-list"
-              x-show="groups.prog"
-              x-transition:enter="skill-transition"
-              x-transition:enter-start="skill-collapsed"
-              x-transition:enter-end="skill-expanded"
-              x-transition:leave="skill-transition"
-              x-transition:leave-start="skill-expanded"
-              x-transition:leave-end="skill-collapsed">
+          <ul class="skill-list" x-bind="list('prog')">
             <li>KQL (Kusto Query Language)</li>
             <li>PowerShell</li>
             <li>SOAR / Logic Apps playbooks</li>
@@ -287,14 +268,7 @@
             Identity &amp; Access Management
             <span class="skill-toggle" x-text="groups.iam ? '−' : '+'"></span>
           </div>
-          <ul class="skill-list"
-              x-show="groups.iam"
-              x-transition:enter="skill-transition"
-              x-transition:enter-start="skill-collapsed"
-              x-transition:enter-end="skill-expanded"
-              x-transition:leave="skill-transition"
-              x-transition:leave-start="skill-expanded"
-              x-transition:leave-end="skill-collapsed">
+          <ul class="skill-list" x-bind="list('iam')">
             <li>Microsoft Entra ID (Conditional Access, Identity Protection)</li>
             <li>Active Directory / AD DS</li>
             <li>Identity Governance &amp; Administration</li>
@@ -309,14 +283,7 @@
             Networking
             <span class="skill-toggle" x-text="groups.net ? '−' : '+'"></span>
           </div>
-          <ul class="skill-list"
-              x-show="groups.net"
-              x-transition:enter="skill-transition"
-              x-transition:enter-start="skill-collapsed"
-              x-transition:enter-end="skill-expanded"
-              x-transition:leave="skill-transition"
-              x-transition:leave-start="skill-expanded"
-              x-transition:leave-end="skill-collapsed">
+          <ul class="skill-list" x-bind="list('net')">
             <li>OPNsense / pfSense</li>
             <li>OpenVPN / WireGuard</li>
             <li>Firewall Log Forwarding &amp; Network Telemetry</li>
@@ -324,18 +291,11 @@
         </div>
 
         <div class="skill-group">
-          <div class="skill-group-header" @click="groups.data = !groups.data">
+          <div class="skill-group-header" @click="groups.infra = !groups.infra">
             Endpoints, Servers &amp; Infra
-            <span class="skill-toggle" x-text="groups.data ? '−' : '+'"></span>
+            <span class="skill-toggle" x-text="groups.infra ? '−' : '+'"></span>
           </div>
-          <ul class="skill-list"
-              x-show="groups.data"
-              x-transition:enter="skill-transition"
-              x-transition:enter-start="skill-collapsed"
-              x-transition:enter-end="skill-expanded"
-              x-transition:leave="skill-transition"
-              x-transition:leave-start="skill-expanded"
-              x-transition:leave-end="skill-collapsed">
+          <ul class="skill-list" x-bind="list('infra')">
             <li>Microsoft Azure (Log Analytics, Azure Monitor, RBAC)</li>
             <li>Microsoft Intune endpoint management</li>
             <li>Windows Server administration</li>
@@ -348,14 +308,7 @@
             Security &amp; Compliance
             <span class="skill-toggle" x-text="groups.sec ? '−' : '+'"></span>
           </div>
-          <ul class="skill-list"
-              x-show="groups.sec"
-              x-transition:enter="skill-transition"
-              x-transition:enter-start="skill-collapsed"
-              x-transition:enter-end="skill-expanded"
-              x-transition:leave="skill-transition"
-              x-transition:leave-start="skill-expanded"
-              x-transition:leave-end="skill-collapsed">
+          <ul class="skill-list" x-bind="list('sec')">
             <li>Security Hardening (GPO)</li>
             <li>ISO 27001 &amp; 27002</li>
             <li>NIST SP 800-53</li>
@@ -376,13 +329,35 @@
       });
     }, { threshold: 0, rootMargin: '0px 0px 120px 0px' });
 
-    document.querySelectorAll('main .animate-in').forEach((el, i) => {
-      el.style.transitionDelay = `${i * 0.03}s`;
-      observer.observe(el);
+    // Start revealing only once the web fonts are in (max 1.5s), so text never visibly swaps font or reflows
+    Promise.race([
+      Promise.all([document.fonts.load('1em Inter'), document.fonts.load('1em Newsreader')]),
+      new Promise((r) => setTimeout(r, 1500)),
+    ]).finally(() => {
+      document.querySelectorAll('.animate-in').forEach((el, i) => {
+        if (el.closest('main')) el.style.transitionDelay = `${i * 0.03}s`;
+        observer.observe(el);
+      });
     });
 
-    document.querySelectorAll('.sidebar.animate-in').forEach((el) => {
-      observer.observe(el);
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('skills', () => ({
+        groups: { cso: true, prog: true, iam: true, net: true, infra: true, sec: true },
+        get anyOpen() { return Object.values(this.groups).some(Boolean); },
+        toggleAll() { const target = !this.anyOpen; for (const k in this.groups) this.groups[k] = target; },
+        // Shared show/transition bindings for each skill list, keyed by its group
+        list(k) {
+          return {
+            'x-show'() { return this.groups[k]; },
+            'x-transition:enter': 'skill-transition',
+            'x-transition:enter-start': 'skill-collapsed',
+            'x-transition:enter-end': 'skill-expanded',
+            'x-transition:leave': 'skill-transition',
+            'x-transition:leave-start': 'skill-expanded',
+            'x-transition:leave-end': 'skill-collapsed',
+          };
+        },
+      }));
     });
   </script>
 </body>
