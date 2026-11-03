@@ -25,9 +25,20 @@
   --bg: #FBFBF9;
   --fg: #000000;
   --accent: #ECECE7;
-  /* Sans: labels, dates, roles, skills. Serif: name, employers, prose. */
+  /* Typefaces by hierarchy, not by content type:
+     Serif (Newsreader): display name, item titles (employers, schools, skill groups), prose.
+     Sans (Inter): section labels, sub-labels, roles, lists, dates, UI. */
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-serif: 'Newsreader', 'Newsreader Fallback', Georgia, 'Times New Roman', serif;
+  /* Type scale (16px root): 42 / 18 / 16 / 13 / 12 / 11 */
+  --text-display: 2.625rem; /* name */
+  --text-title: 1.125rem;   /* item titles, serif 500 */
+  --text-body: 1rem;        /* serif prose */
+  --text-ui: 0.8125rem;     /* sans: roles, sub-labels, lists, contact links */
+  --text-label: 0.75rem;    /* sans caps: section headings, hero title */
+  --text-meta: 0.6875rem;   /* sans: dates, contact labels */
+  --tracking-caps: 0.14em;
+  --leading-prose: 1.65;
   --sidebar-width: 18.75rem;
   --gap: 3rem;
   --date-col-width: 5.5rem;
@@ -118,16 +129,16 @@ a:hover {
 
 .hero-text h1 {
   font-family: var(--font-serif);
-  font-size: 2.6rem;
+  font-size: var(--text-display);
   font-weight: 500;
   letter-spacing: -0.015em;
   line-height: 1.1;
 }
 
 .hero-title {
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
   opacity: 0.7;
   margin: 0.3rem 0 1rem;
@@ -135,8 +146,8 @@ a:hover {
 
 .hero-summary {
   font-family: var(--font-serif);
-  font-size: 1.02rem;
-  line-height: 1.65;
+  font-size: var(--text-body);
+  line-height: var(--leading-prose);
   max-width: 36em;
   opacity: 0.9;
 }
@@ -179,10 +190,10 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.72rem;
+  font-size: var(--text-label);
   line-height: 1.12rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
   margin-bottom: var(--node-gap);
   padding-left: var(--timeline-indent);
@@ -257,7 +268,7 @@ a:hover {
   left: calc(-1 * var(--timeline-indent));
   width: var(--date-col-width);
   text-align: right;
-  font-size: 0.72rem;
+  font-size: var(--text-meta);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
   opacity: 0.55;
@@ -265,15 +276,15 @@ a:hover {
 
 .job-company {
   font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-size: var(--text-title);
   line-height: 1.6rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.01em;
   margin-bottom: 0.15rem;
 }
 
 .job-role {
-  font-size: 0.82rem;
+  font-size: var(--text-ui);
   font-weight: 400;
   opacity: 0.7;
   margin-bottom: 0.75rem;
@@ -281,7 +292,8 @@ a:hover {
 
 .job-body {
   font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-size: var(--text-body);
+  line-height: var(--leading-prose);
   max-width: 66ch;
 }
 
@@ -296,14 +308,14 @@ a:hover {
 
 .sub-role-title {
   font-family: var(--font-sans);
-  font-size: 0.78rem;
+  font-size: var(--text-ui);
   font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
 .cert-date {
   font-family: var(--font-sans);
-  font-size: 0.7rem;
+  font-size: var(--text-meta);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
   opacity: 0.55;
@@ -312,9 +324,9 @@ a:hover {
 
 .cert-name {
   font-family: var(--font-sans);
-  font-size: 0.82rem;
+  font-size: var(--text-ui);
   font-weight: 400;
-  opacity: 0.75;
+  opacity: 0.7;
 }
 
 .cert-name:not(:last-child) {
@@ -330,9 +342,10 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.68rem;
+  font-size: var(--text-label);
+  line-height: 1.12rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
   margin-bottom: 1rem;
 }
@@ -366,7 +379,7 @@ a:hover {
 /* ── Contact list ─────────────────────────────────── */
 .contact-list {
   list-style: none;
-  font-size: 0.8rem;
+  font-size: var(--text-ui);
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
@@ -375,7 +388,7 @@ a:hover {
 .contact-label {
   display: block;
   font-weight: 600;
-  font-size: 0.66rem;
+  font-size: var(--text-meta);
   letter-spacing: 0.04em;
   opacity: 0.55;
   margin-bottom: 0.1rem;
@@ -407,8 +420,11 @@ a:hover {
 }
 
 .skill-group-header {
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-family: var(--font-serif);
+  font-size: var(--text-title);
+  line-height: 1.6rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   cursor: pointer;
   padding: 0.3rem 0;
   display: flex;
@@ -434,7 +450,7 @@ a:hover {
 
 .skill-list {
   list-style: none;
-  font-size: 0.78rem;
+  font-size: var(--text-ui);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
